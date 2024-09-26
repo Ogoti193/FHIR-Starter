@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: "jdbc:postgresql://db:5432/hapi"
+    username: admin
+    password: admin
+    driverClassName: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate.dialect: ca.uhn.fhir.jpa.model.dialect.HapiFhirPostgresDialect
+      hibernate.search.enabled: false
+hapi:
+  fhir:
+    default_encoding: json
+    fhir_version: R4
+    #ig_runtime_upload_enabled: true #Enable when using a HTTP POST Request to submit Base64 encoded data for an Implementation Guide (IG).
+    enable_repository_validating_interceptor: true #Enable if you want HAPI to validate messages against the installed IG. Recommended!
+    implementationguides: #Install all dependencies referenced in your IG.
+      some_ig_1_0_0: #A unique name that you will identify for the IG object. Recommend IgName_IGVersion
+        installMode: STORE_AND_INSTALL #Need this to ensure that the IG is installed
+        name: some.ig.package.r4
+        version: 1.0.0
+        packageUrl: https://build.fhir.org/ig/usernameOrOrganization/gitHubRepoName/branches/master/package.r4.tgz #an example package
